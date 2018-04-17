@@ -14,11 +14,11 @@ Features:
 
 -Enter the Site API key for Eg : FOOBAR12345 and Save the Form.
 
-*Go to the link of the format http(s)://http://dev-site-information-key-nodejson.pantheonsite.io/page_json//<NODE_ID>
+*Go to the link of the format http://dev-site-information-key-nodejson.pantheonsite.io/page_json//<NODE_ID>
 
 *key which you entered and saved in site-information form, <NODE_ID> - The Unique node id of the content you want to Access. Note : The content should be of type Page.
 
-Eg : http://http://dev-site-information-key-nodejson.pantheonsite.io/page_json/FOOBAR12345/17
+Eg : http://dev-site-information-key-nodejson.pantheonsite.io/page_json/FOOBAR12345/17
 
 *Incorrect API key, Non-numeric NODE_ID, NODE_ID of a Node which does not exist or not of type page will return {"error":"access denied"}
 
