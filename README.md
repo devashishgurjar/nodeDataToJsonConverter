@@ -14,7 +14,7 @@ Features:
 -Goto /admin/config/system/site-information
 -Enter the Site API key for Eg : FOOBAR12345 and Save the Form.
 
-*Go to the link of the format http://dev-drupal8tutorialsite.pantheonsite.io/page_json/<SITE API KEY>/<NODE_ID>
+*Go to the link of the format http://dev-drupal8tutorialsite.pantheonsite.io/page_json/<SITE_API_KEY>/<NODE_ID>
 
 *key which you entered and saved in site-information form, <NODE_ID> - The Unique node id of the content you want to Access. Note : The content should be of type Page.
 Eg : http://dev-drupal8tutorialsite.pantheonsite.io/page_json/FOOBAR12345/17
