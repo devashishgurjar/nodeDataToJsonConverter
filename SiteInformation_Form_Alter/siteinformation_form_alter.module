@@ -71,10 +71,11 @@ function siteinformation_form_alter_custom_submit(array $form, FormStateInterfac
   $inject_config = \Drupal::service('config.factory')->getEditable('system.site');
   // Setting and saving site api key value if its something different from default value.
   if($form_state->getValue('siteapikey_details') == 'No API is set yet'){
-	  drupal_set_message(t('Please set site api key value, which is different from default value.'), 'warning');
+    \Drupal::messenger()->addError('Please set site api key value, which is different from default value.');
 	}else{
 		$inject_config->set('siteapikey', $form_state->getValue('siteapikey_details'))->save();
-	  	drupal_set_message(t('Site API key has been saved with: @api_key', array('@api_key' => $form_state->getValue('siteapikey_details'))));
+	  $api_key = $form_state->getValue('siteapikey_details');
+    \Drupal::messenger()->addMessage('Site API key has been saved with: ' . $api_key);
 	}
 }
 
