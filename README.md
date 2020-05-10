@@ -1,37 +1,50 @@
-# SiteInformation Form Alter Module
+# Node Data to Json format converter based on API key.
 
-*This repository has the drupal-8 custom module to alter the existing Drupal-8 "Site Information" form and represent page type node in JSON format
+Code: https://github.com/devashishgurjar/nodeDataToJsonConverter
 
-Features:
+- What Is This?
+---------------
+This module is intended to convert Node data of page content type to
+Json format in Drupal 8. This module has altered site settings form to inject
+extra field named "Site API Key" to save random string as API key in it.
 
-*As an administrative user of a Drupal 8 site you can set up a site wide API key.
+- How To Use This Module
+------------------------
+Please follow below steps to use this module:
 
-*As Anonymous/Authenticated user you can access page content in JSON format on your site if you have the following :
+1. As a common process, enable the module and use it within Drupal.
 
-*Site API Key Node ID of the content of type page. How to use Site Information Form Alter Module? Enable the module,
+2. Save configuration of "Site API Key" at path i.e "/admin/config/system/site-
+   information" and enter any string u want to use as a key.
 
-*Login in as a administrator,
--Goto /admin/config/system/site-information
--Enter the Site API key for Eg : FOOBAR12345 and Save the Form.
+3. Browse to path "http://<site_base_url>/page_json/<SITE_API_KEY>/<NODE_ID>"
+   to see json format of node. If you visit with wrong key or nid (not of page
+   content type) you will see "access denied".
 
-*Go to the link of the format http://dev-drupal8tutorialsite.pantheonsite.io/page_json/<SITE_API_KEY>/<NODE_ID>
+- Features & use of it:
+-----------------------
+1. As an administrative user of a Drupal 8 site you can set up a site wide API key.
 
-*key which you entered and saved in site-information form, <NODE_ID> - The Unique node id of the content you want to Access. Note : The content should be of type Page.
-Eg : http://dev-drupal8tutorialsite.pantheonsite.io/page_json/FOOBAR12345/17
+2. As Anonymous/Authenticated user you can access page content in JSON format
+   on your site, if you have the "Site API Key" and "Node ID" of the content of
+   type "page".
 
-*Incorrect API key, Non-numeric NODE_ID, NODE_ID of a Node which does not exist or not of type page will return {"error":"access denied"}
+3. In Case of Incorrect API key, Non-numeric NODE_ID, NODE_ID of a Node which
+   does not exist or not of type "page" will return {"error":"access denied"}.
 
-References:
+- References:
+-------------
+1. https://www.drupal.org/docs/8/api/configuration-api/configuration-override-system
+2. https://www.drupal.org/docs/8/api/configuration-api/simple-configuration-api
+3. https://www.google.co.in/search?q=json+representation+of+node+drupal+8&rlz=1C1DFOC_enIN653IN653&oq=json+representation+of+node+drupal+8&aqs=chrome..69i57j69i61.19238j0j7&sourceid=chrome&ie=UTF-8
+4. https://drupal.stackexchange.com/questions/191419/drupal-8-node-serialization-to-json
+5. Drupal 8 Form API Drupal 8 JsonResponse
+6. https://github.com/taherj/siteapi
+7. core/modules/automated_cron
 
-https://www.drupal.org/docs/8/api/configuration-api/configuration-override-system
-https://www.drupal.org/docs/8/api/configuration-api/simple-configuration-api
-https://www.google.co.in/search?q=json+representation+of+node+drupal+8&rlz=1C1DFOC_enIN653IN653&oq=json+representation+of+node+drupal+8&aqs=chrome..69i57j69i61.19238j0j7&sourceid=chrome&ie=UTF-8
-https://drupal.stackexchange.com/questions/191419/drupal-8-node-serialization-to-json
-Drupal 8 Form API Drupal 8 JsonResponse
-https://github.com/taherj/siteapi
-core/modules/automated_cron
 
+- Total time to complete task:
+------------------------------
+3 Hours
 
-
-Total time to complete task:
-- 6 Hours
+Thanks
