@@ -39,9 +39,7 @@ Please follow below steps to use this module:
 3. https://www.google.co.in/search?q=json+representation+of+node+drupal+8&rlz=1C1DFOC_enIN653IN653&oq=json+representation+of+node+drupal+8&aqs=chrome..69i57j69i61.19238j0j7&sourceid=chrome&ie=UTF-8
 4. https://drupal.stackexchange.com/questions/191419/drupal-8-node-serialization-to-json
 5. Drupal 8 Form API Drupal 8 JsonResponse
-6. https://github.com/taherj/siteapi
-7. core/modules/automated_cron
-
+6. https://www.drupal.org/project/examples
 
 - Total time to complete task:
 ------------------------------
