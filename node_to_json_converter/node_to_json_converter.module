@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Contains node_to_json_converter.module.
+ *
+ * This file deals with help text for module, site information form alter,addi-
+ * tional submit handler for siteinformation form and a uninstall behaviour of
+ * module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_help().
+ */
+function node_to_json_converter_help($help_path, RouteMatchInterface $route_match) {
+  switch ($help_path) {
+    case "help.page.node_to_json_converter":
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('This module provides the extra field in the site information form for API key configuration and displays the node details of node type page in json format based on api key.') . '</p>';
+      $output .= '<h3>' . t('Uses') . '</h3>';
+      $output .= '<dl>';
+      $output .= '<dt>' . t('Configuring Of Site API Key') . '</dt>';
+      $output .= '<dd>' . t('On the Site Information Page, you can set the API Key for accessing node. It will work as password for accessing node of type page') . '</dd>';
+      $output .= '<dt>' . t('JSON Representation of Node') . '</dt>';
+      $output .= '<dd>' . t('By accessing path given in readme.txt file in this module users will be able to see json representation of node of type page.') . '</dd>';
+      $output .= '</dl>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function node_to_json_converter_form_system_site_information_settings_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Getting system configuration to obtain previously saved site api key.
+  $siteinfo_apikey = \Drupal::config('system.site')->get('siteapikey');
+
+  if (empty($siteinfo_apikey) || $siteinfo_apikey == 'No API is set yet') {
+    // If site api key is empty then setting the default value of field.
+    $siteinfo_apikey = t('No API is set yet');
+  }
+  else {
+    $form['actions']['submit']['#value'] = t('Update Configuration');
+  }
+  // Created additional section in form for api key details.
+  $form['siteapi_information'] = [
+    '#type' => 'details',
+    '#title' => t('API Key details'),
+    '#open' => TRUE,
+  ];
+  // Text field to enter API key details.
+  $form['siteapi_information']['siteapikey_details'] = [
+    '#type' => 'textfield',
+    '#title' => t('Site API Key'),
+    '#default_value' => $siteinfo_apikey,
+    '#required' => TRUE,
+  ];
+  // Adding a additional custom submit handler for capturing apikey value.
+  $form['#submit'][] = 'siteinformation_form_alter_custom_submit';
+}
+
+/**
+ * Added custom submit handler for capturing apikey value.
+ */
+function siteinformation_form_alter_custom_submit(array $form, FormStateInterface $form_state) {
+  $inject_config = \Drupal::service('config.factory')->getEditable('system.site');
+
+  // Saving site api key value if its something different from default value.
+  $messenger = \Drupal::messenger();
+  if ($form_state->getValue('siteapikey_details') == 'No API is set yet') {
+    $messenger->addError(t('Please set site api key value, which is different from default value.'));
+  }
+  else {
+    $inject_config->set('siteapikey', $form_state->getValue('siteapikey_details'))->save();
+    $api_key = $form_state->getValue('siteapikey_details');
+    $messenger->addMessage(t('Site API key has been saved with: %key', ['%key' => $api_key]));
+  }
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function siteinformation_form_alter_uninstall() {
+  // Clearing all the Site API Key values on module uninstall.
+  $unsetconfig = \Drupal::configFactory();
+  $unsetconfig->getEditable('system.site')->clear('siteapikey')->save();
+}

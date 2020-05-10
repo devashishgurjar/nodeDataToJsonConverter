@@ -1,0 +1,6 @@
+node_to_json_converter.page_node_access:
+  path: '/page_json/{api_key}/{node_id}'
+  defaults:
+    _controller: '\Drupal\node_to_json_converter\controller\NodeAccessController::pageNodeAccess'
+  requirements:
+    _permission: 'access content'
